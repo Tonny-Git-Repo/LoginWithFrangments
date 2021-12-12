@@ -11,7 +11,8 @@
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity
             android:name=".IntroActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme"/>
         <activity
             android:name=".SplashActivity"
             android:exported="true"

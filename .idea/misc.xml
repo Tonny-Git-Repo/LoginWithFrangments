@@ -5,6 +5,13 @@
       <map>
         <entry key="..\:/Users/tonny/GitHub_RepoActuel/Android/app/src/main/res/layout/activity_intro.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/tonny/GitHub_RepoActuel/Android/app/src/main/res/layout/activity_splash.xml" value="0.2223731884057971" />
+        <entry key="..\:/Users/tonny/GitHub_RepoActuel/AndroidHaupt/LoginWithFragment/app/src/main/res/layout/activity_intro.xml" value="0.25" />
+        <entry key="..\:/Users/tonny/GitHub_RepoActuel/AndroidHaupt/LoginWithFragment/app/src/main/res/layout/activity_splash.xml" value="0.17760416666666667" />
+        <entry key="..\:/Users/tonny/GitHub_RepoActuel/AndroidHaupt/LoginWithFragment/app/src/main/res/layout/fragment_blank.xml" value="0.17760416666666667" />
+        <entry key="..\:/Users/tonny/GitHub_RepoActuel/AndroidHaupt/LoginWithFragment/app/src/main/res/layout/fragment_sign_in.xml" value="0.334375" />
+        <entry key="..\:/Users/tonny/GitHub_RepoActuel/AndroidHaupt/LoginWithFragment/app/src/main/res/layout/fragment_sign_option.xml" value="0.25" />
+        <entry key="..\:/Users/tonny/GitHub_RepoActuel/AndroidHaupt/LoginWithFragment/app/src/main/res/layout/fragment_sign_option_fragment.xml" value="0.334375" />
+        <entry key="..\:/Users/tonny/GitHub_RepoActuel/AndroidHaupt/LoginWithFragment/app/src/main/res/layout/fragment_sign_up.xml" value="0.334375" />
       </map>
     </option>
   </component>
