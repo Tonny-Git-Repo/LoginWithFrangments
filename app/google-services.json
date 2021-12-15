@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "228289069033",
+    "project_id": "local-project-mctrainer",
+    "storage_bucket": "local-project-mctrainer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228289069033:android:25cca3a4ec40eb2df69578",
+        "android_client_info": {
+          "package_name": "de.thm.ap.mc_trainer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "228289069033-hdm5r16dae5ko0uri3rkhgtblis6f3ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAHuTMiS66eOsGylDJyWP4MPR1t9NLSFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "228289069033-hdm5r16dae5ko0uri3rkhgtblis6f3ug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
