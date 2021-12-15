@@ -1,4 +1,4 @@
-package de.thm.ap.loginwithfragment
+package de.thm.ap.mc_trainer
 
 import org.junit.Test
 
