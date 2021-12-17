@@ -1,6 +1,7 @@
 package de.thm.ap.mc_trainer
 
 import android.animation.ObjectAnimator
+import android.app.AlertDialog
 
 import android.os.Bundle
 import android.os.Handler
@@ -9,14 +10,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import de.thm.ap.mc_trainer.databinding.FragmentSignInBinding
-import de.thm.ap.mc_trainer.firebase.FirestoreClass
+import de.thm.ap.mc_trainer.firebase.UserDAO
 import de.thm.ap.mc_trainer.models.User
 
 
@@ -24,6 +25,8 @@ class SignInFragment : Fragment() {
 
     private lateinit var binding: FragmentSignInBinding
     private lateinit var progressBar : ProgressBar
+    private lateinit var db : FirebaseFirestore
+    private lateinit var userDAO: UserDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,32 +36,54 @@ class SignInFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentSignInBinding.inflate(inflater, container, false)
         val view = binding.root
+        userDAO = UserDAO()
+        db = FirebaseFirestore.getInstance()
 
         binding.signIn.setOnClickListener {
 
             if(validate()){
-                binding.emailLogin.setText("")
-                binding.passwordLogin.setText("")
+               if(userDAO.userLogin("email", binding.emailLogin.text.toString().trim(), binding.passwordLogin.text.toString()) == User()){
+                   AlertDialog.Builder(activity)
+                       .setTitle("Please sign up")
+                       .setMessage("This email is not registrered!")
+                       .setNeutralButton("ok", null)
+                       .show()
+                   binding.passwordLogin.onEditorAction(EditorInfo.IME_ACTION_DONE)
+               }else{
+                   progressBar()
+                   Handler().postDelayed({
+                       findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
+                       progressBar.visibility = View.INVISIBLE
+                       progressBar.progress = 0
+                       erase()
+                   },500)
+               }
 
-                progressBar()
-                Handler().postDelayed({
-                    findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
-                    progressBar.visibility = View.INVISIBLE
-                    progressBar.progress = 0
-                },500)
-               /* Log.d("LOG_SIGNED_IN", "signed in succesfull")
-                FirebaseFirestore.getInstance().collection("users")
-                    .document()
-                    .get()
-                    .addOnSuccessListener { document ->
-                        val loggegInUser = document.toObject(User::class.java)
-                        Log.d("TAG_REC", document.toString())
-                    }
-                Log.d("LOG_SIGNED_IN", "signed ended")*/
+                /*if( userDAO.userLogin("email", binding.emailLogin.text.toString(), binding.passwordLogin.text.toString()).email =="") {
+                    AlertDialog.Builder(activity)
+                        .setTitle("Please sign up")
+                        .setMessage("This email is not registrered!")
+                        .setNeutralButton("ok", null)
+                        .show()
+                    binding.passwordLogin.onEditorAction(EditorInfo.IME_ACTION_DONE)
+                }else if (userDAO.userLogin("email", binding.emailLogin.text.toString(),binding.passwordLogin.text.toString()) == "wrongPassword"){
+                    binding.passwordLogin.error = "Please enter the correct password!"
+                    binding.passwordLogin.onEditorAction(EditorInfo.IME_ACTION_DONE)
+                    binding.passwordLogin.setText("")
+                }else{
+                    progressBar()
+                    Handler().postDelayed({
+                        findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
+                        progressBar.visibility = View.INVISIBLE
+                        progressBar.progress = 0
+                        erase()
+                    },500)
+                }*/
+
             }else{
                 Log.d("TAG_OUT", "signed in failed")
             }
@@ -75,6 +100,11 @@ class SignInFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun erase() {
+        binding.emailLogin.setText("")
+        binding.passwordLogin.setText("")
     }
 
     private fun validate(): Boolean{
