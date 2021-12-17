@@ -2,37 +2,30 @@ package de.thm.ap.mc_trainer
 
 import android.animation.ObjectAnimator
 import android.app.AlertDialog
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ProgressBar
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import de.thm.ap.mc_trainer.databinding.FragmentSignInBinding
 import de.thm.ap.mc_trainer.databinding.FragmentSignUpBinding
-import de.thm.ap.mc_trainer.firebase.FirestoreClass
-import de.thm.ap.mc_trainer.models.User
-import java.util.*
-import kotlin.concurrent.timerTask
-import kotlin.concurrent.schedule
+import de.thm.ap.mc_trainer.firebase.UserDAO
 
 
 class SignUpFragment : Fragment() {
 
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var progressBar : ProgressBar
+    private lateinit var userDAO: UserDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
     }
 
@@ -43,6 +36,8 @@ class SignUpFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
         val view = binding.root
+        userDAO = UserDAO()
+
 
         binding.signUp.setOnClickListener {
 
@@ -59,35 +54,15 @@ class SignUpFragment : Fragment() {
                         .setNeutralButton("ok", null)
                         .show()
                 }else{
-                    FirebaseAuth.getInstance()
-                        .createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener { tasks ->
-
-                            if (tasks.isSuccessful) {
-
-                                val firebaseUser: FirebaseUser = tasks.result!!.user!!
-                                val registeredEmail = firebaseUser.email!!
-                                val user = User(firebaseUser.uid, name, registeredEmail)
-                                FirestoreClass().registerUser(this, user)
-                                FirebaseAuth.getInstance().signOut()
-                                progressBar()
-                                Handler().postDelayed({
-                                    findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
-                                     progressBar.visibility = View.INVISIBLE
-                                     progressBar.progress = 0
-                                },500)
-
-                            } else {
-                                if(tasks.exception?.message?.toString() == "The email address is already in use by another account."){
-                                    Snackbar.make(it, "The email address is already in use by another account!!",
-                                        Snackbar.LENGTH_LONG).show()
-                                }else{
-                                    tasks.exception?.message?.let { Log.e("TAG", it) }
-                                }
-                            }
-                        }
-
-                }
+                    if(userDAO.registerUser(view ,name, email, password)){
+                        progressBar()
+                        Handler().postDelayed({
+                            findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
+                            progressBar.visibility = View.INVISIBLE
+                            progressBar.progress = 0
+                        },500)
+                    }
+                    }
             }
 
         }
@@ -98,12 +73,6 @@ class SignUpFragment : Fragment() {
         binding.prevButton.setOnClickListener { (activity)
             progressBar()
 
-            /*Timer().schedule(500){
-                findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
-            }
-            Timer().schedule(timerTask {
-                findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
-            }, 500)*/
             Handler().postDelayed({
                 findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
                 progressBar.visibility = View.INVISIBLE
