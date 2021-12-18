@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context=".SignInFragment">
+    tools:context=".userFragment.SignInFragment">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -29,47 +29,56 @@
         android:layout_below="@id/progress_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="53dp"
-        android:text="Sign In" />
+        android:text="@string/sign_in" />
 
     <TextView
         android:id="@+id/little_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Sign in to your account"
+        android:text="@string/sign_in_to_your_account"
         tools:layout_editor_absoluteY="98dp"
         android:layout_below="@+id/logging_Text"
         style = "@style/TextAppearance.MaterialComponents.Caption" />
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/email_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/password_wrapper"
+        android:hint="@string/email"
+        app:endIconMode="clear_text"
+        app:helperTextTextColor="@color/red"
+        app:startIconDrawable="@drawable/ic_email"
         android:layout_marginBottom="20dp">
 
         <EditText
             android:id="@+id/email_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="email" />
+            android:ems="10" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/password_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        app:passwordToggleEnabled="true">
+        app:startIconDrawable="@drawable/ic_password"
+        app:endIconMode="password_toggle"
+        app:errorEnabled="true"
+        app:helperTextTextColor="@color/red"
+        app:errorIconDrawable="@drawable/ic_error"
+        android:layout_centerInParent="true">
 
         <EditText
             android:id="@+id/password_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="password"
+            android:hint="@string/password"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -78,7 +87,7 @@
         android:id="@+id/sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In"
+        android:text="@string/sign_in"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/password_wrapper" />
 
@@ -88,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/sign_in"
         android:layout_marginTop="40dp"
-        android:text="to Sign Up" />
+        android:text="@string/to_sign_up" />
 
 
 </RelativeLayout>

@@ -1,24 +1,19 @@
-package de.thm.ap.mc_trainer
+package de.thm.ap.mc_trainer.userActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import de.thm.ap.mc_trainer.databinding.ActivityIntroductionBinding
+import de.thm.ap.mc_trainer.R
 
 class IntroductionActivity : AppCompatActivity() {
 
-
+    /**
+     * This the activity, where the sign in and sign up fragments are managed
+     * after a login the other Fragments will be managed in the main activity
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_introduction)
-
-
-        /*supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, SignInFragment())
-            .commit()*/
-        //setupActionBarWithNavController(findNavController(R.id.frame_layout))
     }
 
     override fun onSupportNavigateUp(): Boolean {
