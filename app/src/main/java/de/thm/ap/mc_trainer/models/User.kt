@@ -3,7 +3,7 @@ package de.thm.ap.mc_trainer.models
 import android.os.Parcel
 import android.os.Parcelable
 
-data class User (val id: String ="", var name: String = "", val email: String ="", val password: String =""): Parcelable {
+data class User (val id: String ="", val name: String = "", val email: String ="", val password: String =""): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,

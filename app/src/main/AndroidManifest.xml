@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.thm.ap.mc_trainer">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -14,11 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MCTrainer">
         <activity
-            android:name=".IntroductionActivity"
-            android:exported="true"
-            android:theme="@style/Theme"/>
+            android:name=".appActivity.MainActivity"
+            android:exported="true" />
         <activity
-            android:name=".SlashActivity"
+            android:name=".userActivity.IntroductionActivity"
+            android:exported="true"
+            android:theme="@style/Theme" />
+        <activity
+            android:name=".userActivity.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme">
             <intent-filter>
@@ -27,9 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
     </application>
 
 </manifest>
