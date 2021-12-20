@@ -11,24 +11,11 @@
     tools:context=".userFragment.SignUpFragment">
 
 
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleY="1"
-        android:visibility="invisible"
-        android:indeterminate="false"
-        android:max="100"
-        />
-
     <TextView
         android:id="@+id/logging_Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sign_up"
-        android:layout_below="@+id/progress_bar"
         android:layout_centerHorizontal="true"
         style = "@style/TextAppearance.MaterialComponents.Headline3"/>
 
@@ -92,11 +79,11 @@
         app:passwordToggleEnabled="true">
 
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:inputType="textPassword" />
+            android:textSize="20dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,8 +103,9 @@
             android:id="@+id/confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            app:passwordToggleEnabled="true"
+            android:textSize="20dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
