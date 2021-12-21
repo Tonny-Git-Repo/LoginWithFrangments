@@ -1,8 +1,10 @@
 package de.thm.ap.mc_trainer.appActivity
 
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import de.thm.ap.mc_trainer.R
 import de.thm.ap.mc_trainer.databinding.ActivityMainBinding
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         }else{
             Toast.makeText(this, "Press back again to logout", Toast.LENGTH_LONG).show()
         }
-        
+
         backPressedTime = System.currentTimeMillis()
     }
 
