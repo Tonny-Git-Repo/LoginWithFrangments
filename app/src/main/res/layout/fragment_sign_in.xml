@@ -25,6 +25,7 @@
         android:text="@string/sign_in_to_your_account"
         tools:layout_editor_absoluteY="98dp"
         android:layout_below="@+id/logging_Text"
+        android:layout_marginBottom="2dp"
         style = "@style/TextAppearance.MaterialComponents.Caption" />
 
     <com.google.android.material.textfield.TextInputLayout

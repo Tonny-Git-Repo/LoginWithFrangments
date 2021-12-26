@@ -10,18 +10,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import de.thm.ap.mc_trainer.R
 import de.thm.ap.mc_trainer.databinding.FragmentSignUpBinding
 import de.thm.ap.mc_trainer.firebase.UserDAO
+//import de.thm.ap.mc_trainer.utils.BaseActivity
 
 
 class SignUpFragment : Fragment() {
 
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var userDAO: UserDAO
+    //private val helpers = BaseActivity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,7 @@ class SignUpFragment : Fragment() {
         var passwordIsValid = false
         var confirmPasswordIsValid = true
 
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
         // Inflate the layout for this fragment
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
@@ -49,12 +53,14 @@ class SignUpFragment : Fragment() {
             if(text!!.isNotEmpty()){
                 if(text.length < 4){
                     binding.nameWrapper.helperText = "at least 4 charaters"
+                    userNameIsValid = false
                 }else{
                     binding.nameWrapper.helperText = null
                     userNameIsValid = true
                 }
             }else if(text!!.isBlank()){
                 binding.nameWrapper.helperText ="required*"
+                userNameIsValid = false
             }
         }
 
@@ -63,6 +69,7 @@ class SignUpFragment : Fragment() {
             if(text!!.isNotEmpty()){
                 if(!Patterns.EMAIL_ADDRESS.matcher(text).matches()){
                     binding.emailWrapper.helperText = "email not valid"
+                    emailIsValid = false
                 }else{
                     binding.emailWrapper.helperText = null
                     binding.newEmail.error = null
@@ -76,12 +83,14 @@ class SignUpFragment : Fragment() {
             if(text!!.isNotEmpty()){
                 if(text.length < 7){
                     binding.passwordWrapper.helperText = "at least 7 charaters"
+                    passwordIsValid = false
                 }else{
                     binding.passwordWrapper.helperText = null
                     passwordIsValid = true
                 }
             }else if(text!!.isBlank()){
                 binding.passwordWrapper.helperText ="required*"
+                passwordIsValid = false
             }
         }
 
@@ -119,7 +128,7 @@ class SignUpFragment : Fragment() {
 
 
     fun toSignInFragment(){
-        findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
+        findNavController().navigate(R.id.signInFragment)
     }
 
     fun userRegisteredSuccess() {
@@ -174,14 +183,16 @@ class SignUpFragment : Fragment() {
             .setMessage("Sorry but this email is already used by someone!!")
             .setNeutralButton("ok", null)
             .show()
+            .getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(resources.getColor(R.color.purple_700))
     }
 
     fun showErrorSomething(){
-        AlertDialog.Builder(activity)
+        AlertDialog.Builder(context)
             .setTitle("Email already used")
             .setMessage("Sorry but this email is already used by someone!!")
             .setNeutralButton("ok", null)
             .show()
+            .getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(resources.getColor(R.color.purple_700))
     }
 
 

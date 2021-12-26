@@ -2,9 +2,7 @@ package de.thm.ap.mc_trainer.firebase
 
 import android.app.AlertDialog
 import android.util.Log
-import android.view.View
 import androidx.fragment.app.FragmentActivity
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,6 +10,7 @@ import de.thm.ap.mc_trainer.R
 import de.thm.ap.mc_trainer.models.User
 import de.thm.ap.mc_trainer.userFragment.SignInFragment
 import de.thm.ap.mc_trainer.userFragment.SignUpFragment
+//import de.thm.ap.mc_trainer.utils.BaseActivity
 
 
 /***
@@ -20,9 +19,8 @@ import de.thm.ap.mc_trainer.userFragment.SignUpFragment
 class UserDAO {
 
     private val fireStore = FirebaseFirestore.getInstance()
+    //private val helper = BaseActivity()
     private lateinit var dialogProgresBar : AlertDialog
-
-
     private fun getAllUser() = fireStore.collection("users")
 
     fun userLogin(activity: SignInFragment, emailValue: String, password: String){
@@ -75,7 +73,19 @@ class UserDAO {
 
 
     fun getCurrentUserId(): String {
-        return FirebaseAuth.getInstance().currentUser!!.uid
+        var currentUser = FirebaseAuth.getInstance().currentUser
+        var currentUserId = ""
+        if(currentUser != null){
+            currentUserId = currentUser.uid
+        }
+        return currentUserId
+    }
+
+   /* fun getCurrentUser(): User{
+
+    }*/
+    fun logout() {
+        FirebaseAuth.getInstance().signOut()
     }
 
     fun startProgressbar(activity: FragmentActivity?){
@@ -98,5 +108,6 @@ class UserDAO {
         activity.toSignInFragment()
         stopProgressBar()
     }
+
 
 }
